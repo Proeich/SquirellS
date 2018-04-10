@@ -5,8 +5,6 @@ import PROG2_SS2018.Aufgabe2.Entities.Player.*;
 import PROG2_SS2018.Aufgabe2.Utils.*;
 
 public class Engine {
-
-
     int k = 2;
 
     public static void main(String[] args){
@@ -24,7 +22,7 @@ public class Engine {
 
     public Engine(){}
 
-    public Engine(Entity[] in){
+    private Engine(Entity[] in){
         set = new EntitySet();
         for(Entity en : in){
             set.insertIn(en);
@@ -32,9 +30,11 @@ public class Engine {
 
     }
 
-    public void run(){
+    private void run(){
         while(true){
-            processInput();
+            if(processInput())
+                break;
+
             render();
             update();
         }
@@ -42,12 +42,13 @@ public class Engine {
 
     private void update(){}
 
-    public void render(){
+    private void render(){
         System.out.println(set.toString());
     }
 
-    private void processInput(){
+    private boolean processInput(){
         set.superStep();
+        return false;
     }
 
 
