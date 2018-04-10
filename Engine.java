@@ -5,8 +5,9 @@ import PROG2_SS2018.Aufgabe2.Entities.Player.*;
 import PROG2_SS2018.Aufgabe2.Utils.*;
 
 public class Engine {
-    int k = 2;
 
+    int y = 9;
+    int ppp = 7;
     public static void main(String[] args){
         Engine gg = new Engine(
                 new Entity[]{new GoodBeast(),
