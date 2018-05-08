@@ -2,6 +2,7 @@ package PROG2_SS2018.Aufgabe2.Utils;
 
 public class Vector2 {
 
+    //Set final
     private int x;
     private int y;
 

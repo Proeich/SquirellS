@@ -1,6 +1,7 @@
 package PROG2_SS2018.Aufgabe2.Entities.Player;
 
 import PROG2_SS2018.Aufgabe2.Utils.*;
+import PROG2_SS2018.Aufgabe2.Utils.UI;
 
 import java.util.Scanner;
 
@@ -10,13 +11,13 @@ public class MasterSquirell extends Squirrel implements UI{
 
     public MasterSquirell(int SID){
         super.name = "MasterSquirell";
-        super.ID = 0;
+        this.playSymbol = 'M';
         this.SID = SID;
         this.Energie = 1000;
     }
 
-    public boolean isMineSquirrel(MiniSquirrel sq){
-        if(this.SID == sq.getMaster().getSID()){
+    public boolean isMineSquirrel(MiniSquirrel miniSquirrel){
+        if(miniSquirrel.getMaster() == this){
             return true;
         }
         return false;
@@ -24,22 +25,21 @@ public class MasterSquirell extends Squirrel implements UI{
 
     @Override
     public void nextStep() {
-        move(this.askMovement());
+        move(askMovement());
     }
 
     public int getSID() {
         return SID;
     }
 
-    //Keine Gut Ausgelagerte Funktion
     public Vector2 askMovement() {
         while (true) {
             Scanner sc = new Scanner(System.in);
             System.out.println("Bitte geben sie eine Richtung an: " + '\n' +
-                    "1 Rechts" + '\n' +
-                    "2 Links" + '\n' +
-                    "3 Oben" + '\n' +
-                    "4 Unten" + '\n');
+                    "1 Unten" + '\n' +
+                    "2 Oben" + '\n' +
+                    "3 Rechts" + '\n' +
+                    "4 Links" + '\n');
 
             int k = sc.nextInt();
             switch (k) {

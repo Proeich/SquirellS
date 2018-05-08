@@ -1,24 +1,37 @@
 package PROG2_SS2018.Aufgabe2.Entities.Environment;
 
+import PROG2_SS2018.Aufgabe2.Utils.Board;
 import PROG2_SS2018.Aufgabe2.Utils.Vector2;
 
 import java.util.Random;
 
-public class Entity {
+public abstract class Entity {
 
     protected String name;
     protected int ID;
     protected int Energie;
     protected Vector2 pos;
+    protected int lifes;
+    protected char playSymbol;
+    protected boolean stunned;
 
     public Entity(){
+        this.stunned = false;
         Random rn = new Random();
-        int k = rn.nextInt(5);
-        pos = new Vector2(k,k);
+        int k = rn.nextInt(5)+1;
+        int p = rn.nextInt(5)+1;
+        pos = new Vector2(k,p);
     }
 
     public void updateEnergy(int inp){
         Energie+=inp;
+    }
+
+    public void setFirstPos(Board board){
+        Random rn = new Random();
+        int n = rn.ints(2,board.getSize().getY()).findFirst().getAsInt() - 1;
+        int nn = rn.ints(2,board.getSize().getX()).findFirst().getAsInt() - 1;
+        pos = new Vector2(n,nn);
     }
 
     public void nextStep(){
@@ -73,7 +86,59 @@ public class Entity {
         return sb.toString();
     }
 
+    public void getHit(){
+        this.lifes -=1;
+    }
+
     public String getName() {
         return name;
+    }
+
+    public Vector2 getPos() {
+        return pos;
+    }
+
+    public int getID() {
+        return ID;
+    }
+
+    public int onHit(){
+        return 0;
+    }
+
+    public int getEnergie() {
+        return Energie;
+    }
+
+    public int getLifes() {
+        return lifes;
+    }
+
+    public EntityType getType(){
+        return EntityType.getType(this.getID());
+    }
+
+    public char getPlaySymbol() {
+        return playSymbol;
+    }
+
+    public void setStunned(boolean stunned) {
+        this.stunned = stunned;
+    }
+
+    public boolean getStunned(){
+        return stunned;
+    }
+
+    public void revive(){
+        this.stunned = false;
+        Random rn = new Random();
+        int k = rn.nextInt(5)+1;
+        int p = rn.nextInt(5)+1;
+        pos = new Vector2(k,p);
+    }
+
+    public void setPos(Vector2 pos) {
+        this.pos = pos;
     }
 }
