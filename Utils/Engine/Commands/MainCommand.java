@@ -1,6 +1,6 @@
-package PROG2_SS2018.Aufgabe2.Utils.Engine.Commands;
+package Utils.Engine.Commands;
 
-import PROG2_SS2018.Aufgabe2.Utils.Engine.Engine;
+import Utils.Engine.Engine;
 
 public abstract class MainCommand {
 

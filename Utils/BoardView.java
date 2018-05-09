@@ -1,10 +1,10 @@
-package PROG2_SS2018.Aufgabe2.Utils;
+package Utils;
 
-import PROG2_SS2018.Aufgabe2.Entities.Environment.EntityType;
+import Entities.Environment.EntityType;
 
 public interface BoardView {
 
-    public EntityType getEntityType(Vector2 pos);
-    public Vector2 getSize();
+    EntityType getEntityType(Vector2 pos);
+    Vector2 getSize();
 
 }

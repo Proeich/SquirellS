@@ -1,9 +1,9 @@
-package PROG2_SS2018.Aufgabe2.Utils;
+package Utils;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Score {
+class Score {
 
     //ScoreBoard
 

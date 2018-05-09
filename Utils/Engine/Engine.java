@@ -1,9 +1,8 @@
-package PROG2_SS2018.Aufgabe2.Utils.Engine;
+package Utils.Engine;
 
-import PROG2_SS2018.Aufgabe2.Entities.Player.MasterSquirell;
-import PROG2_SS2018.Aufgabe2.Game;
-import PROG2_SS2018.Aufgabe2.Utils.Board;
-import PROG2_SS2018.Aufgabe2.Utils.Engine.Commands.*;
+import Entities.Player.MasterSquirell;
+import Utils.Engine.Commands.*;
+import Utils.Board;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,14 +11,14 @@ import java.util.Set;
 
 public class Engine {
 
-    Board board;
-    Boolean end;
+    private Board board;
+    private Boolean end;
 
     private HashMap<String, CompiledValue> hashe = new HashMap();
     private MasterSquirell masterSquirell;
-    CommandScanner cs = new CommandScanner();
+    private CommandScanner cs = new CommandScanner();
 
-    String txt;
+    private String txt;
 
 
     public Engine(Board board){

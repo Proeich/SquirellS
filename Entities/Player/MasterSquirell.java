@@ -1,7 +1,7 @@
-package PROG2_SS2018.Aufgabe2.Entities.Player;
+package Entities.Player;
 
-import PROG2_SS2018.Aufgabe2.Utils.*;
-import PROG2_SS2018.Aufgabe2.Utils.UI;
+import Utils.UI;
+import Utils.Vector2;
 
 import java.util.Scanner;
 
@@ -17,10 +17,7 @@ public class MasterSquirell extends Squirrel implements UI{
     }
 
     public boolean isMineSquirrel(MiniSquirrel miniSquirrel){
-        if(miniSquirrel.getMaster() == this){
-            return true;
-        }
-        return false;
+        return miniSquirrel.getMaster() == this;
     }
 
     @Override

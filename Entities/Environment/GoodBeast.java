@@ -1,6 +1,4 @@
-package PROG2_SS2018.Aufgabe2.Entities.Environment;
-
-import PROG2_SS2018.Aufgabe2.Utils.Vector2;
+package Entities.Environment;
 
 public class GoodBeast extends Entity {
 

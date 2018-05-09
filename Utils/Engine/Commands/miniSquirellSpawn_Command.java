@@ -1,12 +1,9 @@
-package PROG2_SS2018.Aufgabe2.Utils.Engine.Commands;
+package Utils.Engine.Commands;
 
-import PROG2_SS2018.Aufgabe2.Entities.Environment.Entity;
-import PROG2_SS2018.Aufgabe2.Entities.Environment.EntityType;
-import PROG2_SS2018.Aufgabe2.Entities.Player.MasterSquirell;
-import PROG2_SS2018.Aufgabe2.Entities.Player.MiniSquirrel;
-import PROG2_SS2018.Aufgabe2.Utils.Engine.Engine;
-import PROG2_SS2018.Aufgabe2.Utils.EntitySet;
-import PROG2_SS2018.Aufgabe2.Utils.Vector2;
+import Entities.Player.MiniSquirrel;
+import Utils.Engine.Engine;
+import Utils.EntitySet;
+import Utils.Vector2;
 
 import java.util.Random;
 

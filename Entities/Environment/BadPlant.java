@@ -1,8 +1,8 @@
-package PROG2_SS2018.Aufgabe2.Entities.Environment;
+package Entities.Environment;
 
-import PROG2_SS2018.Aufgabe2.Utils.Vector2;
+import Utils.Vector2;
 
-public class BadPlant extends Entity{
+class BadPlant extends Entity{
 
     public BadPlant(){
         super();

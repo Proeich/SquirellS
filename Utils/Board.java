@@ -1,10 +1,11 @@
-package PROG2_SS2018.Aufgabe2.Utils;
+package Utils;
 
-import PROG2_SS2018.Aufgabe2.Entities.Environment.*;
-import PROG2_SS2018.Aufgabe2.Entities.Player.MasterSquirell;
-import PROG2_SS2018.Aufgabe2.Entities.Player.MiniSquirrel;
-import PROG2_SS2018.Aufgabe2.Entities.Player.Squirrel;
-import PROG2_SS2018.Aufgabe2.Utils.Engine.Engine;
+import Entities.Environment.*;
+import Entities.Environment.EntityType;
+import Entities.Player.MasterSquirell;
+import Entities.Player.MiniSquirrel;
+import Entities.Player.Squirrel;
+import Utils.Engine.Engine;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -288,7 +289,7 @@ public class Board implements BoardView,EntityContext {
     public void tryMove(MasterSquirell masterSquirell) {
         Vector2 mmoveVector;
         while(true) {
-            mmoveVector = ((MasterSquirell) masterSquirell).askMovement();
+            mmoveVector = masterSquirell.askMovement();
             if(testOutrange(masterSquirell,mmoveVector)){
                 break;
             }
@@ -339,7 +340,7 @@ public class Board implements BoardView,EntityContext {
         return EntityType.getType(entitySet.getEntity(pos).getID());
     }
 
-    public boolean testCollide(Entity entity, Vector2 moveVector) {
+    private boolean testCollide(Entity entity, Vector2 moveVector) {
         Entity[][] buf = getBoard();
         if(entity.getPos().getY() + moveVector.getY() >= boardConfig.getSize().getY() | entity.getPos().getX() + moveVector.getX() >= boardConfig.getSize().getY()){
             return false;
@@ -410,10 +411,7 @@ public class Board implements BoardView,EntityContext {
         if (entity.getPos().getY() + move.getY() >= boardConfig.getSize().getY()) {
             return false;
         }
-        if (entity.getPos().getX() + move.getX() >= boardConfig.getSize().getX()) {
-            return false;
-        }
-        return true;
+        return entity.getPos().getX() + move.getX() < boardConfig.getSize().getX();
     }
 }
 

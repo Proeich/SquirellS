@@ -1,11 +1,8 @@
-package PROG2_SS2018.Aufgabe2;
+package main;
 
-import PROG2_SS2018.Aufgabe2.Entities.Environment.*;
-import PROG2_SS2018.Aufgabe2.Entities.Player.*;
-import PROG2_SS2018.Aufgabe2.Utils.*;
-import PROG2_SS2018.Aufgabe2.Utils.Engine.Engine;
-
-import java.util.Scanner;
+import Entities.Environment.*;
+import Utils.Engine.*;
+import Utils.*;
 
 public class Game{
 

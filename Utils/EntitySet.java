@@ -1,8 +1,7 @@
-package PROG2_SS2018.Aufgabe2.Utils;
-import PROG2_SS2018.Aufgabe2.Entities.Environment.Entity;
-import PROG2_SS2018.Aufgabe2.Entities.Environment.EntityType;
-import PROG2_SS2018.Aufgabe2.Entities.Player.MasterSquirell;
-import PROG2_SS2018.Aufgabe2.Entities.Player.MiniSquirrel;
+package Utils;
+import Entities.Environment.Entity;
+import Entities.Player.MasterSquirell;
+import Entities.Player.MiniSquirrel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,7 +50,7 @@ public class EntitySet {
         return null;
     }
 
-    public void collideWithFriendly(EntitySet entitySet ,Entity movingEnt, Entity hittingEnt){
+    public void collideWithFriendly(EntitySet entitySet, Entity movingEnt, Entity hittingEnt){
         entitySet.getEntity(movingEnt).updateEnergy(hittingEnt.onHit());
         entitySet.getEntity(hittingEnt).getHit();
     }

@@ -1,6 +1,6 @@
-package PROG2_SS2018.Aufgabe2.Utils.Engine;
+package Utils.Engine;
 
-import PROG2_SS2018.Aufgabe2.Utils.Engine.Commands.MainCommand;
+import Utils.Engine.Commands.MainCommand;
 
 public class CompiledValue {
 

@@ -1,7 +1,6 @@
-package PROG2_SS2018.Aufgabe2.Entities.Player;
+package Entities.Player;
 
-import PROG2_SS2018.Aufgabe2.Entities.Environment.*;
-import PROG2_SS2018.Aufgabe2.Utils.Vector2;
+import Entities.Environment.Entity;
 
 public class Squirrel extends Entity {
 

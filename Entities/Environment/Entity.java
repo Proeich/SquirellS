@@ -1,7 +1,7 @@
-package PROG2_SS2018.Aufgabe2.Entities.Environment;
+package Entities.Environment;
 
-import PROG2_SS2018.Aufgabe2.Utils.Board;
-import PROG2_SS2018.Aufgabe2.Utils.Vector2;
+import Utils.Board;
+import Utils.Vector2;
 
 import java.util.Random;
 

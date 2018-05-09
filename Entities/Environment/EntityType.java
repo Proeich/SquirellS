@@ -1,6 +1,4 @@
-package PROG2_SS2018.Aufgabe2.Entities.Environment;
-
-import PROG2_SS2018.Aufgabe2.Entities.Player.MasterSquirell;
+package Entities.Environment;
 
 public enum EntityType {
     BadBeast, GoodBeast, GoodPLant, BadPLant, Wall, MiniSquirrel, MasterSquirrel,;

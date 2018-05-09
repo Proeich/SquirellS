@@ -1,4 +1,4 @@
-package PROG2_SS2018.Aufgabe2.Entities.Player;
+package Entities.Player;
 
 public class MiniSquirrel extends Squirrel {
 

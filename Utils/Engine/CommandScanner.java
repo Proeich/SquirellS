@@ -1,13 +1,11 @@
-package PROG2_SS2018.Aufgabe2.Utils.Engine;
+package Utils.Engine;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
-public class CommandScanner {
+class CommandScanner {
 
     public CommandScanner(){}
 
