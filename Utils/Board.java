@@ -7,11 +7,9 @@ import Entities.Player.MiniSquirrel;
 import Entities.Player.Squirrel;
 import Utils.Engine.Engine;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.util.Random;
 
-public class Board implements BoardView,EntityContext {
+public class Board implements BoardView {
 
 
     private BoardConfig boardConfig;
@@ -25,7 +23,7 @@ public class Board implements BoardView,EntityContext {
         timer = 4;
         this.entitySet = entitySet;
         boardConfig = new BoardConfig();
-        flattenedBoard = new FlattenedBoard();
+        flattenedBoard = new FlattenedBoard(entitySet, boardConfig);
         setWalls();
     }
 
@@ -55,7 +53,7 @@ public class Board implements BoardView,EntityContext {
         this.engine = new Engine(this);
         try {
             for (Entity entity : entitySet.getSet()) {
-                testDead(entity);
+                flattenedBoard.testDead(entity);
             }
         }catch (Exception e1){e1.printStackTrace();}
 
@@ -66,65 +64,27 @@ public class Board implements BoardView,EntityContext {
                 switch (EntityType.getType(e.getID())) {
                     case GoodBeast:
                         if (timer % 4 == 0) {
-                            tryMove((GoodBeast) e);
+                           flattenedBoard.tryMove((GoodBeast) e);
                         }
                         break;
                     case BadBeast:
                         if (timer % 4 == 0) {
-                            tryMove((BadBeast) e);
+                            flattenedBoard.tryMove((BadBeast) e);
                         }
                         break;
                     case MiniSquirrel:
                         if (timer % 4 == 0) {
-                            tryMove((MiniSquirrel) e);
+                            flattenedBoard.tryMove((MiniSquirrel) e);
                         }
                         break;
                     case MasterSquirrel:
-                        engine.setMasterSquirell((MasterSquirell) e);
-                        engine.run();
-
                         break;
                 }
             }
         }
     }
 
-    private void testDead(Entity entity){
-            switch(entity.getType()){
-                case Wall:
-                    return;
-                case BadBeast:
-                    if(entity.getLifes() <= 0){
-                        killAndReplace(entity);
-                    }
-                    return;
-                case GoodBeast:
-                    if(entity.getLifes() <= 0){
-                        killAndReplace(entity);
-                    }
-                    return;
-                case GoodPLant:
-                    if(entity.getLifes() <= 0){
-                        killAndReplace(entity);
-                    }
-                    return;
-                case BadPLant:
-                    if(entity.getLifes() <= 0){
-                        killAndReplace(entity);
-                    }
-                    return;
-                case MasterSquirrel:
-                    if(entity.getEnergie() <= 0){
-                        System.exit(42);
-                    }
-                    return;
-                case MiniSquirrel:
-                    if(entity.getEnergie() <= 0){
-                        kill(entity);
-                    }
-                    return;
-            }
-        }
+
 
     private Entity[][] getBoard() {
         return flattenedBoard.getBoard(entitySet, boardConfig.getSize());
@@ -165,78 +125,6 @@ public class Board implements BoardView,EntityContext {
     @Override
     public Vector2 getSize() {
         return boardConfig.getSize();
-    }
-
-    @Override
-    public void tryMove(MiniSquirrel miniSquirrel) {
-        for (Entity e : entitySet.getSet()) {
-            if (e == miniSquirrel) {
-                Vector2 mmoveVector;
-                while(true) {
-                    Random rn = new Random();
-
-                    mmoveVector = posNeg(new Vector2(rn.nextInt(2), rn.nextInt(2)));
-                    if(testOutrange(miniSquirrel,mmoveVector)){
-                        break;
-                    }
-                }
-                if (!testCollide(e, mmoveVector)) {
-                    e.move(mmoveVector);
-                }
-            }
-        }
-    }
-
-    @Override
-    public void tryMove(GoodBeast goodBeast) {
-        for (Entity e : entitySet.getSet()) {
-            if (e == goodBeast) {
-                Vector2 mmoveVector;
-                while(true) {
-                    Random rn = new Random();
-                    mmoveVector = posNeg(new Vector2(rn.nextInt(2), rn.nextInt(2)));
-                    if(testOutrange(goodBeast,mmoveVector)){
-                        break;
-                    }
-                }
-                if (!testCollide(e, mmoveVector)) {
-                    e.move(mmoveVector);
-                }
-            }
-        }
-    }
-
-    @Override
-    public void tryMove(BadBeast badBeast) {
-        for (Entity e : entitySet.getSet()) {
-            Vector2 mmoveVector;
-            if (e == badBeast) {
-                try {
-                    Vector2 movement = nearestPlayerEntity(badBeast.getPos(), 5).getPos();
-                    movement = getMovement(badBeast.getPos(),movement);
-                    mmoveVector = calcSquiPos(badBeast,movement);
-                    if (mmoveVector != null) {
-                        if (!testCollide(e, mmoveVector)) {
-                            e.move(mmoveVector);
-                        }
-                        return;
-                    }
-                } catch (Exception ignored) {
-                    while(true) {
-                        Random rn = new Random();
-                        mmoveVector = posNeg(new Vector2(rn.nextInt(2), rn.nextInt(2)));
-                        if(testOutrange(badBeast,mmoveVector)){
-                            break;
-                        }
-                    }
-                    Random rn = new Random();
-                    mmoveVector = posNeg(new Vector2(rn.nextInt(2), rn.nextInt(2)));
-                    if (!testCollide(e, mmoveVector)) {
-                        e.move(mmoveVector);
-                    }
-                }
-            }
-        }
     }
 
     private Vector2 getMovement(Vector2 badBeastV,Vector2 squirrelV){
@@ -283,56 +171,6 @@ public class Board implements BoardView,EntityContext {
         }
         return mmoveVector;
 
-    }
-
-    @Override
-    public void tryMove(MasterSquirell masterSquirell) {
-        Vector2 mmoveVector;
-        while(true) {
-            mmoveVector = masterSquirell.askMovement();
-            if(testOutrange(masterSquirell,mmoveVector)){
-                break;
-            }
-        }
-
-        if (!testCollide(masterSquirell, mmoveVector)) {
-            masterSquirell.move(mmoveVector);
-        }
-    }
-
-    @Override
-    public Squirrel nearestPlayerEntity(Vector2 pos, int distance) {
-        Entity[][] field = this.flattenedBoard.getBoard(entitySet, this.getSize());
-        try {
-            for (int i = 0; i < distance; i++) {
-                for (int k = 0; k >= distance; k++) {
-                    if (field[pos.getY() + i][pos.getX() + k].getType() == EntityType.MasterSquirrel | field[pos.getY() + i][pos.getX() + k].getType() == EntityType.MiniSquirrel) {
-                        return (Squirrel) field[pos.getY() + i][pos.getX() + k];
-                    }
-                }
-            }
-            for (int i = 0; i < distance; i++) {
-                for (int k = 0; k >= distance; k++) {
-                    if (field[pos.getY() - i][pos.getX() - k].getType() == EntityType.MasterSquirrel | field[pos.getY() + i][pos.getX() + k].getType() == EntityType.MiniSquirrel) {
-                        return (Squirrel) field[(pos.getY() - i)][(pos.getX() - k)];
-                    }
-                }
-            }
-        } catch (Exception ignored) {
-            return null;
-        }
-
-        return null;
-    }
-
-    @Override
-    public void kill(Entity entity) {
-        entitySet.deleteIn(entity);
-    }
-
-    @Override
-    public void killAndReplace(Entity entity) {
-        entitySet.getEntity(entity).revive();
     }
 
     @Override
@@ -415,100 +253,3 @@ public class Board implements BoardView,EntityContext {
     }
 }
 
-class BoardConfig {
-
-    //to be written to File
-    private Vector2 size;
-    private int wallCount;
-
-    public BoardConfig(){
-        try {
-            readFromFile();
-        } catch (Exception e) {
-            size = new Vector2(10,10);
-            wallCount = 20;
-        }
-    }
-
-    public void writeToFile(){
-    }
-
-    private void readFromFile() throws Exception {
-        BufferedReader br = new BufferedReader(new FileReader("Test"));
-        StringBuilder sb = new StringBuilder();
-        String k = br.readLine();
-        size = new Vector2(Integer.parseInt(k.split(", ")[0]),Integer.parseInt(k.split(", ")[1]));
-        k = br.readLine();
-        wallCount = Integer.parseInt(k);
-        br.close();
-    }
-
-    public int getWallCount() {
-        return wallCount;
-    }
-
-    public void setWallCount(int wallCount) {
-        this.wallCount = wallCount;
-    }
-
-    public Vector2 getSize() {
-        return size;
-    }
-
-    public void setSize(Vector2 size) {
-        this.size = size;
-    }
-
-}
-
-class FlattenedBoard {
-
-    public FlattenedBoard(){
-
-    }
-
-    public String flatten(Board board){
-        StringBuilder sb = new StringBuilder();
-        String[][] buffer = new String[board.getBoardConfig().getSize().getX()][board.getBoardConfig().getSize().getY()];
-        int index1 = 0;
-        int index2 = 0;
-
-        for(Entity entity : board.getEntitySet().getSet()){
-            buffer[entity.getPos().getX()][entity.getPos().getY()] = String.valueOf(entity.getPlaySymbol());
-        }
-        for(String[] s : buffer){
-            index2=0;
-            for(String ss : s){
-                if(ss == null){
-                    buffer[index1][index2] = " ";
-                }
-                index2++;
-            }
-            index1++;
-        }
-
-        index1 = 0;
-        index2 = 0;
-        for(String s[] : buffer){
-            for (String ss : s){
-                sb.append(ss).append(" ");
-                index2++;
-            }
-            sb.append('\n');
-            index1 ++;
-        }
-        return sb.toString();
-    }
-
-    public Entity[][] getBoard(EntitySet entitySet,Vector2 size){
-        Entity[][] Buffer = new Entity[size.getY()][size.getX()];
-
-        for(Entity e : entitySet.getSet()){
-            Buffer[e.getPos().getY()][e.getPos().getX()] = e;
-        }
-        return Buffer;
-    }
-
-
-
-}
