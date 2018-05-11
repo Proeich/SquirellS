@@ -341,6 +341,17 @@ class FlattenedBoard implements EntityContext{
 
     }
 
-
+    public void spawnMiniSquirell(MasterSquirell masterSquirell, int energie){
+        MiniSquirrel buf = new MiniSquirrel(masterSquirell, energie);
+        Random rn = new Random();
+        int x = rn.nextInt(2);
+        int y = rn.nextInt(2);
+        buf.setPos(new Vector2(masterSquirell.getPos().getX(),masterSquirell.getPos().getY()));
+        while(!testCollide(buf, new Vector2(x,y))){
+            x = rn.nextInt(2);
+            y = rn.nextInt(2);
+        }
+        this.entitySet.insertIn(buf, new Vector2(x,y));
+    }
 
 }

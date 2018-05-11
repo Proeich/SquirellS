@@ -5,7 +5,7 @@ import Utils.Vector2;
 
 import java.util.Scanner;
 
-public class MasterSquirell extends Squirrel implements UI{
+public class MasterSquirell extends Squirrel{
 
     private final int SID;
 

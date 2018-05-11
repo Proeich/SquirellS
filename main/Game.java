@@ -1,14 +1,14 @@
 package main;
 
 import Entities.Environment.*;
-import Utils.Engine.*;
 import Utils.*;
+import Utils.Command.*;
 
 public class Game{
 
     private EntitySet set;
     private Board board;
-    private Engine engine;
+    private UI ui;
 
     public Game(){}
 
@@ -19,13 +19,14 @@ public class Game{
             en.setFirstPos(board);
             set.insertIn(en);
         }
+        ui = new CommandScanner(set);
     }
 
     public void run(){
         while(true){
             render();
-            update();
             processInput();
+            update();
         }
     }
 
@@ -37,7 +38,7 @@ public class Game{
         System.out.println(board.show());
     }
 
-    private boolean processInput(){
-        return true;
+    private void processInput(){
+        ui.getCommand();
     }
 }
