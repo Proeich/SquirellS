@@ -77,4 +77,9 @@ public class CommandScanner implements UI {
             }
         }
     }
+
+    @Override
+    public void message(String string) {
+
+    }
 }

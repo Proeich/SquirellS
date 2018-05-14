@@ -1,27 +1,28 @@
 package main;
 
-import Entities.Environment.*;
-import Utils.*;
-import Utils.Command.*;
+import Entities.Environment.Entity;
+import Utils.Board;
+import Utils.EntitySet;
 import main.Starter.Starter;
 
-public class Game implements Starter {
+public class Game_BotImpl implements Starter {
 
     private EntitySet set;
     private Board board;
-    private UI ui;
 
-    public Game(Entity[] in){
+    public Game_BotImpl(){}
+
+    public Game_BotImpl(Entity[] in){
         set = new EntitySet();
         board = new Board(this.set);
+
         for(Entity en : in){
             en.setFirstPos(board);
             set.insertIn(en);
         }
-        ui = new CommandScanner(set);
+
     }
 
-    @Override
     public void run(){
         while(true){
             render();
@@ -39,6 +40,5 @@ public class Game implements Starter {
     }
 
     private void processInput(){
-        ui.getCommand();
     }
 }

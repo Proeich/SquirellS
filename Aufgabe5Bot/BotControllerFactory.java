@@ -2,7 +2,7 @@ package Aufgabe5Bot;
 
 public interface BotControllerFactory {
 
-    void createMasterBotController();
-    void createMiniBotController();
+    public MasterSquirellBot createMasterBotController();
+    public MiniSquirellBot createMiniBotController();
 
 }

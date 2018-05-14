@@ -3,8 +3,8 @@ package Entities.Environment;
 public enum EntityType {
     BadBeast, GoodBeast, GoodPLant, BadPLant, Wall, MiniSquirrel, MasterSquirrel,;
 
-    public static EntityType getType(int ID){
-        switch(ID){
+    public static EntityType getType(int ID) {
+        switch (ID) {
             case 1:
                 return BadBeast;
             case 2:
@@ -24,5 +24,26 @@ public enum EntityType {
         }
     }
 
+    public static int getDanger(EntityType e) {
+        switch (e) {
+            case BadBeast:
+                return 2;
+            case Wall:
+                return 1;
+            case GoodBeast:
+                return 1;
+            case BadPLant:
+                return 2;
+            case GoodPLant:
+                return 1;
+            case MiniSquirrel:
+                return 0;
+            case MasterSquirrel:
+                return 0;
+                default:
+                    return 0;
+        }
 
+
+    }
 }

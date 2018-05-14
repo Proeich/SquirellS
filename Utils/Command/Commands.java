@@ -22,10 +22,6 @@ public class Commands {
         System.out.println("(\"Hallo\")" + s);
     }
 
-    public void writeShitN(String[] s){
-        System.out.println("(\"Hallo\")" + s);
-    }
-
     public void down(){
         for(Entity e : entitySet.getSet()){
             if(e.getType() == EntityType.MasterSquirrel){
@@ -80,7 +76,8 @@ public class Commands {
             StringBuilder sb = new StringBuilder();
 
             for(Parameter parameter : method.getParameters()){
-                sb.append(parameter.getType().getClass().getName()).append(", ");
+
+                sb.append(parameter.getType().getName()).append(", ");
             }
             lis.add(method.getName() + " Args: (" + sb.toString() + ")");
         }

@@ -1,11 +1,14 @@
 package Entities.Player;
 
+import Aufgabe5Bot.BotController;
+import Aufgabe5Bot.ControllerContext;
+import Aufgabe5Bot.MasterSquirellBot;
 import Utils.UI;
 import Utils.Vector2;
 
 import java.util.Scanner;
 
-public class MasterSquirell extends Squirrel{
+public class MasterSquirell extends Squirrel implements BotController{
 
     private final int SID;
 
@@ -54,4 +57,8 @@ public class MasterSquirell extends Squirrel{
         }
     }
 
+    @Override
+    public void nextStep(ControllerContext view) {
+
+    }
 }
