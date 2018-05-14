@@ -1,32 +1,37 @@
 package main;
 
 import Entities.Environment.*;
+import Entities.Player.MasterSquirell;
 import Utils.*;
-import Utils.Command.*;
 import main.Starter.Starter;
 
-public class Game implements Starter {
+public class Thread_Game implements Starter{
 
     private EntitySet set;
     private Board board;
-    private UI ui;
+    public static final int FPS = 10;
+    private boolean synchron;
 
-    public Game(Entity[] in){
-        set = new EntitySet();
+     public Thread_Game(){
+         Entity[] in = {new GoodBeast(), new GoodPlant(), new BadBeast(), new MasterSquirell(0)};
+         set = new EntitySet();
         board = new Board(this.set);
         for(Entity en : in){
             en.setFirstPos(board);
             set.insertIn(en);
         }
-        ui = new CommandScanner(set);
     }
 
-    @Override
     public void run(){
         while(true){
             render();
-            processInput();
+
+            if(!synchron)
+                try{
+                Thread.sleep(1000/FPS);
+                }catch(InterruptedException e){}
             update();
+            processInput();
         }
     }
 
@@ -38,7 +43,7 @@ public class Game implements Starter {
         System.out.println(board.show());
     }
 
-    private void processInput(){
-        ui.getCommand();
+    private boolean processInput(){
+        return true;
     }
 }

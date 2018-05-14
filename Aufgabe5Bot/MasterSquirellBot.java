@@ -22,9 +22,12 @@ public class MasterSquirellBot extends MasterSquirell implements BotController, 
         List<Vector2> dangerZone = new ArrayList<>();
         List<Vector2> wealthZone = new ArrayList<>();
 
+        Vector2 param = view.getViewUpperRight();
+        param.setX(param.getX() - 2);
+
         for(int y = 0; y <= 3; y++){
             for(int x = 0; x <= 3; x++){
-               map[y][x] = view.getEntityAt(new Vector2(x,y));
+               map[y][x] = view.getEntityAt(new Vector2(param.getX() + x,param.getY() + y));
             }
         }
 
